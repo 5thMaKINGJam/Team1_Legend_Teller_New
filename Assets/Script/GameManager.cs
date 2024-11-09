@@ -44,15 +44,16 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameStart 메서드 호출됨");
         startPage.SetActive(false);
+        menuSet.SetActive(false);
         Time.timeScale = 1f;
     }
-
+    /*
     public void ResumeGame()
     {
         Time.timeScale = 1f;
         menuSet.SetActive(false);
     }
-
+    */
     public void PauseGame()
     {
         menuSet.SetActive(true);
@@ -61,11 +62,16 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameStart();
+        }
+
         if (Input.GetButtonDown("Cancel") && !startPage.activeSelf)
         {
             if (menuSet.activeSelf)
             {
-                ResumeGame();
+                GameStart();
             }
             else
             {
@@ -73,10 +79,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        
+
     }
     
-    
-   
 
     public void AddScore(int value)
     {
