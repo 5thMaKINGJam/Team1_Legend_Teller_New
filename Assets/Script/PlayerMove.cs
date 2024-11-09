@@ -126,15 +126,19 @@ public class PlayerMove : MonoBehaviour
     {
         //health down
         gameManager.DecreasePlayerHealth();
+        if (gameManager.playerHealth <= 0)
+            OnDie();
+        else {
+            gameObject.layer = 9;
 
-        gameObject.layer = 9;
+            //View Alpha
+            spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+            //여기에 피격 애니메이션 넣기
 
-        //View Alpha
-        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+            Invoke("OffDamaged", 3);
+        }
 
-        //여기에 피격 애니메이션 넣기
-
-        Invoke("OffDamaged", 3);
+       
     }
 
     void OffDamaged()
@@ -153,5 +157,6 @@ public class PlayerMove : MonoBehaviour
         //capCollider.enabled = false;
         //Die Effect Jump
         rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+        gameManager.GameOver();
     }
 }

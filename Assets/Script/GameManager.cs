@@ -11,12 +11,14 @@ public class GameManager : MonoBehaviour
 
     private int score = 0;  // Player's score (total points)
     private int coinCount = 0;  // Number of coins collected
-    
+    public int playerHealth = 3;
+
     public TMP_Text scoreText;  // UI Text element to display the score
     public TMP_Text coinCountText;  // UI Text element to display the coin count
 
     public GameObject menuSet;
     public GameObject startPage;
+    public GameObject resultPage;
 
     private void Awake()
     {
@@ -33,9 +35,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        resultPage.SetActive(false);
         UpdateScoreText();
         menuSet.SetActive(false);
-
         Time.timeScale = 0f;
         startPage.SetActive(true);
     }
@@ -47,17 +49,24 @@ public class GameManager : MonoBehaviour
         menuSet.SetActive(false);
         Time.timeScale = 1f;
     }
-    /*
-    public void ResumeGame()
-    {
-        Time.timeScale = 1f;
-        menuSet.SetActive(false);
-    }
-    */
+
     public void PauseGame()
     {
         menuSet.SetActive(true);
         Time.timeScale = 0f;
+    }
+
+    public void GameOver()
+    {
+        resultPage.SetActive(true);
+        GameStop();
+    }
+
+
+
+    public void GameRetry()
+    {
+        SceneManager.LoadScene(0);
     }
 
     void Update()
@@ -79,10 +88,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        
-
     }
-    
+
+    public void DecreasePlayerHealth()
+    {
+        playerHealth--;
+    }
 
     public void AddScore(int value)
     {
@@ -109,16 +120,10 @@ public class GameManager : MonoBehaviour
 
     public void GameStop()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
         Application.Quit();
-#endif
-    }
+        Time.timeScale = 0f;
 
-    public void DecreasePlayerHealth()
-    {
+
 
     }
-
 }
