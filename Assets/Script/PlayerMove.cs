@@ -20,7 +20,7 @@ public class PlayerMove : MonoBehaviour
     private bool isJumping;
     private bool isSliding;
     private float groundCheckDistance = 1f; //나중에 더 좋은 조작감으로 수정
-    private float obstacleCheckDistance = 1.5f;
+    private float obstacleCheckDistance = 0.5f;
     private float v;
     private Vector2 originalColliderSize;
     private Vector2 originalColliderOffset;
